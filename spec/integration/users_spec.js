@@ -39,7 +39,7 @@ describe("routes : users", () => {
       };
 
       request.post(options, (err, res, body) => {
-        User.findOne({ where: { username: "ziggy" } })
+        User.findOne({ where: { email: "user@example.com" } })
           .then(user => {
             expect(user).not.toBeNull();
             expect(user.email).toBe("user@example.com");

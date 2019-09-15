@@ -22,21 +22,18 @@ module.exports = {
                 message: "Invalid email or password"
               });
             }
-            // #5
             return done(null, user);
           });
         }
       )
     );
 
-    // #6
     passport.serializeUser((user, callback) => {
       callback(null, user.id);
     });
 
-    // #7
     passport.deserializeUser((id, callback) => {
-      User.findByPk(id)
+      User.findById(id)
         .then(user => {
           callback(null, user);
         })

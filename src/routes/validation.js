@@ -4,7 +4,7 @@ module.exports = {
       req
         .checkBody("username", "must be at least 6 characters in length")
         .isLength({ min: 6 });
-      req.checkParams("email", "must be valid").isEmail();
+      req.checkBody("email", "must be valid").isEmail();
       req
         .checkBody("password", "must be at least 6 characters in length")
         .isLength({ min: 6 });
