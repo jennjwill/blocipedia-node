@@ -15,7 +15,10 @@
         <p class="lead">
           An application for users to create, collaborate, and share wikis.
         </p>
+        <% if(!currentUser) { %>
+
         <a href="/users/sign_up" class="btn btn-primary btn-lg">Sign up</a>
+        <% } %>
       </header>
 
       <!-- Page Features -->
