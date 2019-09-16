@@ -32,7 +32,7 @@ describe("routes : users", () => {
       const options = {
         url: `${base}sign_up`,
         form: {
-          username: "ziggy",
+          username: "ziggy22",
           email: "user@example.com",
           password: "123456789"
         }
@@ -57,14 +57,14 @@ describe("routes : users", () => {
       const options = {
         url: `${base}sign_up`,
         form: {
-          username: "ziggy",
+          username: "ziggy22",
           email: "user@example.com",
           password: "123456789"
         }
       };
 
       request.post(options, (err, res, body) => {
-        User.findOne({ where: { username: "ziggy" } })
+        User.findOne({ where: { username: "ziggy22" } })
           .then(user => {
             expect(user).not.toBeNull();
             expect(user.email).toBe("user@example.com");
@@ -84,7 +84,7 @@ describe("routes : users", () => {
         {
           url: `${base}sign_up`,
           form: {
-            username: "ziggy",
+            username: "ziggy22",
             email: "no",
             password: "123456789"
           }
