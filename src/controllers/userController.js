@@ -20,18 +20,8 @@ module.exports = {
         req.flash("error", err);
         res.redirect("/users/sign_up");
       } else {
-        const sgMail = require("@sendgrid/mail");
-        sgMail.setApiKey(process.env.SENDGRID_API_KEY);
-        const msg = {
-          to: user.email,
-          from: "signedup@blocipedia.com",
-          subject: "You've Signed Up with Blocipedia!",
-          text: "Log in and start collaborating on wikis!",
-          html: "<strong>Log in and start collaborating on wikis!</strong>"
-        };
-        sgMail.send(msg);
         passport.authenticate("local")(req, res, () => {
-          req.flash("notice", "You've successfully signed in!");
+          req.flash("notice", "You've successfully signed up!");
           res.redirect("/");
         });
       }
