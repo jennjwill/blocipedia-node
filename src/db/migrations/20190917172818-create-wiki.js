@@ -9,15 +9,15 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       title: {
-        allowNull: false,
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
+        allowNull: false
       },
       body: {
-        allowNull: false,
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
+        allowNull: false
       },
       private: {
-        type: Sequelize.BOOLEAN.INTEGER,
+        type: Sequelize.BOOLEAN,
         allowNull: false,
         defaultValue: false
       },
@@ -31,10 +31,10 @@ module.exports = {
       },
       userId: {
         type: Sequelize.INTEGER,
-        onDelete: "CASCADE", //delete wiki if user is deleted
+        onDelete: "CASCADE",
         allowNull: false,
         references: {
-          model: "Users", //table name
+          model: "Users",
           key: "id",
           as: "userId"
         }
