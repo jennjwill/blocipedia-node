@@ -1,6 +1,10 @@
 const userQueries = require("../db/queries.users.js");
 const passport = require("passport");
 
+const secretKey = process.env.SECRET_KEY;
+const publishableKey = process.env.PUBLISHABLE_KEY;
+const stripe = require("stripe")(secretKey);
+
 module.exports = {
   signUp(req, res, next) {
     res.render("users/sign_up");
@@ -47,6 +51,44 @@ module.exports = {
   signOut(req, res, next) {
     req.logout();
     req.flash("notice", "You've successfully signed out!");
+    res.redirect("/");
+  },
+
+  upgrade(req, res, next) {
+    res.render("users/upgrade", { publishableKey }); //change to real key from stripe dashboard
+  },
+
+  payment(req, res, next) {
+    stripe.customers
+      .create({
+        email: req.body.stripeEmail
+      })
+      .then(customer => {
+        return stripe.customers.createSource(customer.id, {
+          source: "tok_visa"
+        });
+      })
+      .then(source => {
+        return stripe.charges.create({
+          amount: 1500,
+          description: "Blocipedia Premium Membership Charge",
+          currency: "usd",
+          customer: source.customer
+        });
+      })
+      .then(charge => {
+        userQueries.upgrade(req.user.dataValues.id);
+        res.render("users/payment_success");
+      })
+      .catch(err => {
+        console.log(err);
+        done();
+      });
+  },
+
+  downgrade(req, res, next) {
+    userQueries.downgrade(req.user.dataValues.id);
+    req.flash("notice", "You are no longer a premium Blocipedia user.");
     res.redirect("/");
   }
 };
