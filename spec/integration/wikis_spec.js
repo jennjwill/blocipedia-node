@@ -57,7 +57,7 @@ describe("routes : wikis", () => {
     it("should render a new wiki form", done => {
       request.get(`${base}new`, (err, res, body) => {
         expect(err).toBeNull();
-        expect(body).toContain("New Wiki");
+        expect(body).toContain("Wiki title");
         done();
       });
     });
