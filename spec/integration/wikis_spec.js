@@ -13,12 +13,14 @@ describe("routes : wikis", () => {
       User.create({
         username: "ziggy22",
         email: "admin@example.com",
-        password: "123456789"
+        password: "123456789",
+        role: "standard"
       }).then(user => {
         this.user = user;
         request.get({
           url: "http://localhost:3000/auth/fake",
           form: {
+            role: user.role,
             id: user.id,
             username: user.name,
             email: user.email
