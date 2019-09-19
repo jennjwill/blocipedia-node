@@ -1,46 +1,58 @@
 <!DOCTYPE html>
-<html lang ="en">
-	<head>
-		<% include ../static/partials/head.ejs %>
-	</head>
-	<body>
-		<% include ../static/partials/navbar.ejs %>
-	<main class = "container">
-	<% include ../static/partials/messages.ejs %>
-		<% if(currentUser && currentUser.role == "standard") { %>
-            <h1>Premium Blocipedia membership is only $15</h1>
-             
-            <ul>
-              <li>Create private wikis.</li>
-              <li>Collaborate with other private members.</li>
-            </ul>
-           <form action="/users/<%=currentUser.id%>/upgrade" method="POST">
-  				<script src="https://checkout.stripe.com/checkout.js" class="stripe-button"
-    			data-key="<%=publishableKey%>"
-    			data-amount="1500"
-    			data-name="Demo Site"
-    			data-description="Blocipedia Premium Membership"
-    			data-image="https://stripe.com/img/documentation/checkout/marketplace.png"
-    			data-locale="auto">
-  			</script>
-			</form>
-		<% } %>
-		<% if(currentUser && currentUser.role == "premium") { %>
-			<h1>We are sorry to see you go!</h1>
-            <h1>Are you sure you want to downgrade?</h2> 
-            <h2>You will miss out on all this awesomeness:</h2> 
-            <ul>
-              <li>Create private wikis!</li>
-              <li>Collaborate with other private members!</li>
-              <li>Become part of a growing and empowering community!</li>
-              <li>Stay tuned!</li>
-            </ul>
-			<form action="/users/<%=currentUser.id%>/downgrade" method="POST"> 
-				<button type="submit" class="btn btn-danger">Downgrade your account!</button>
-			</form>
-	
-		<% } %>
-	</main>
-	<% include ../static/partials/baseScripts.ejs %>
-	</body>
+<html lang="en">
+  <head>
+    <% include ../static/partials/head.ejs %>
+  </head>
+  <body>
+    <% include ../static/partials/navbar.ejs %>
+    <main class="container">
+      <% include ../static/partials/messages.ejs %> <% if(currentUser &&
+      currentUser.role == "standard") { %>
+      <h1 class="display-5">Upgrade to Premium membership.</h1>
+
+      <ul>
+        <li>Create private wikis.</li>
+        <li>Collaborate with other premium members.</li>
+      </ul>
+
+      <h2 class="display-5">$15</h2>
+      <form action="/users/<%=currentUser.id%>/upgrade" method="POST">
+        <script
+          src="https://checkout.stripe.com/checkout.js"
+          class="stripe-button"
+          data-key="<%=publishableKey%>"
+          data-amount="1500"
+          data-name="Demo Site"
+          data-description="Blocipedia Premium Membership"
+          data-image="https://stripe.com/img/documentation/checkout/marketplace.png"
+          data-locale="auto"
+        ></script>
+      </form>
+      <% } %> <% if(currentUser && currentUser.role == "premium") { %>
+      <h1>
+        Are you sure you want to miss out on what premium membership has to
+        offer?
+      </h1>
+
+      <ul>
+        <li>You'll no longer be able to create private wikis.</li>
+        <li>
+          You'll no longer be able to collaborate with other premium members.
+        </li>
+        <li>We and your readers will MISS YOU!</li>
+      </ul>
+      <p>
+        If you are certain you'd no longer like to contribute to private wikis
+        and would like to cancel your premium membership:
+      </p>
+      <form action="/users/<%=currentUser.id%>/downgrade" method="POST">
+        <button type="submit" class="btn btn-danger">
+          Downgrade to standard (free) membership
+        </button>
+      </form>
+
+      <% } %>
+    </main>
+    <% include ../static/partials/baseScripts.ejs %>
+  </body>
 </html>
