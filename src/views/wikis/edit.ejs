@@ -7,6 +7,7 @@
     <% include ../static/partials/navbar.ejs %>
 
     <main class="container">
+      <% include ../static/partials/messages.ejs %>
       <h1>Edit wiki</h1>
 
       <form action="/wikis/<%= wiki.id %>/update" method="post">
@@ -32,6 +33,15 @@
 <%= wiki.body %></textarea
           >
         </div>
+
+        <% if((currentUser && (currentUser.role === "admin" || currentUser.role
+        === "premium")) && wiki.userId === currentUser.id){ %>
+        <label for="private">Make wiki private?</label>
+        <select class="form-control" name="private">
+          <option value="true">Private Wiki</option>
+          <option value="false">Public Wiki</option>
+        </select>
+        <% } %>
         <button type="submit" class="btn btn-primary">Update</button>
       </form>
     </main>
