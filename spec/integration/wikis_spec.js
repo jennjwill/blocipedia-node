@@ -20,10 +20,10 @@ describe("routes : wikis", () => {
         request.get({
           url: "http://localhost:3000/auth/fake",
           form: {
-            role: user.role,
-            id: user.id,
             username: user.name,
-            email: user.email
+            email: user.email,
+            role: user.role,
+            id: user.id
           }
         });
         Wiki.create({
@@ -70,13 +70,14 @@ describe("routes : wikis", () => {
         form: {
           title: "best albums of 1984",
           body: "Purple Rain",
-          userId: this.user.id
+          userId: 1,
+          private: false
         }
       };
       request.post(options, (err, res, body) => {
         Wiki.findOne({ where: { title: "best albums of 1984" } })
           .then(wiki => {
-            expect(wiki.body).toContain("Purple Rain");
+            expect(wiki.body).toContain("Purple Rain"); //findOne is working, this may not be creating a wiki
             done();
           })
           .catch(err => {
