@@ -27,10 +27,14 @@
 
         <% if(currentUser && currentUser.role != "standard") { %>
         <li class="nav-item">
-          <a class="nav-link" href="/wikis/private">View private wikis</a>
+          <a class="nav-link" href="/wikis/private">View my private wikis</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="/wikis/new">Create wiki</a>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link" href="/users/collaborations">Collaborations</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="/users/sign_out">Sign out</a>
@@ -43,6 +47,9 @@
         <% } else if(currentUser && currentUser.role == "standard") { %>
         <li class="nav-item">
           <a class="nav-link" href="/wikis/new">Create wiki</a>
+        </li>
+        <li>
+          <a class="nav-link" href="/users/collaborations">Collaborations</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="/users/sign_out">Sign out</a>

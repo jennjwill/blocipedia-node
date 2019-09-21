@@ -50,12 +50,24 @@ module.exports = {
   },
 
   show(req, res, next) {
-    wikiQueries.getWiki(req.params.id, (err, wiki) => {
+    wikiQueries.getWiki(req.params.id, (err, result) => {
+      wiki = result["wiki"];
+      collaborators = result["collaborators"];
       if (err || wiki == null) {
         res.redirect(404, "/");
       } else {
-        wiki.body = markdown.toHTML(wiki.body);
-        res.render("wikis/show", { wiki });
+        const authorized = new Authorizer(
+          req.user,
+          wiki,
+          collaborators
+        ).showCollaborators();
+        if (authorized) {
+          wiki.body = markdown.toHTML(wiki.body);
+          res.render("wikis/show", { wiki });
+        } else {
+          req.flash("notice", "You are not authorized to do that.");
+          res.redirect(`/wikis`);
+        }
       }
     });
   },
@@ -71,11 +83,19 @@ module.exports = {
   },
 
   edit(req, res, next) {
-    wikiQueries.getWiki(req.params.id, (err, wiki) => {
+    wikiQueries.getWiki(req.params.id, (err, result) => {
+      wiki = result["wiki"];
+      collaborators = result["collaborators"];
       if (err || wiki == null) {
         res.redirect(404, "/");
       } else {
-        res.render("wikis/edit", { wiki });
+        const authorized = new Authorizer(req.user, wiki, collaborators).edit();
+        if (authorized) {
+          res.render("wikis/edit", { wiki, collaborators });
+        } else {
+          req.flash("notice", "You are not authorized to do that.");
+          res.redirect(`/wikis/${req.params.id}`);
+        }
       }
     });
   },
