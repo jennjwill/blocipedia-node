@@ -3,7 +3,10 @@ const wikiQueries = require("../db/queries.wikis.js");
 const passport = require("passport");
 
 const secretKey = process.env.SECRET_KEY;
+
 const publishableKey = process.env.PUBLISHABLE_KEY;
+console.log("publishableKey", publishableKey);
+
 const stripe = require("stripe")(secretKey);
 
 module.exports = {
@@ -96,8 +99,8 @@ module.exports = {
 
   showCollaborations(req, res, next) {
     userQueries.getUser(req.user.id, (err, result) => {
-      user = result["user"];
-      collaborations = result["collaborations"];
+      let user = result["user"];
+      let collaborations = result["collaborations"];
       if (err || user == null) {
         res.redirect(404, "/");
       } else {

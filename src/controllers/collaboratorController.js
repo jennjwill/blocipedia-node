@@ -11,6 +11,8 @@ module.exports = {
         req.flash("error", err);
       }
       res.redirect(req.headers.referer);
+      console.log("made it thru add method");
+      console.log(collaborator);
     });
   },
 
