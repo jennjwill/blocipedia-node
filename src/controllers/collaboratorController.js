@@ -8,11 +8,12 @@ module.exports = {
   add(req, res, next) {
     collaboratorQueries.add(req, (err, collaborator) => {
       if (err) {
-        req.flash("error", err);
+        req.flash("notice", err);
       }
       res.redirect(req.headers.referer);
       console.log("made it thru add method");
-      console.log(collaborator);
+      console.log("collaborator=", collaborator);
+      console.log("err=", err);
     });
   },
 

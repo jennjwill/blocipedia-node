@@ -12,6 +12,7 @@ module.exports = {
     }).then(user => {
       if (!user) {
         return callback("User does not exist");
+        console.log("in queries.collab add", req.body.collaborator);
       }
       Collaborator.findOne({
         where: {
