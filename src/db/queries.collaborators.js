@@ -21,6 +21,7 @@ module.exports = {
       }).then(collaborator => {
         if (collaborator) {
           return callback("This user is already a collaborator on this wiki.");
+          console.log("got thru Collaborator.findOne", collaborator);
         }
         let newCollaborator = {
           userId: user.id,

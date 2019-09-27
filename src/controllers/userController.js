@@ -5,7 +5,6 @@ const passport = require("passport");
 const secretKey = process.env.SECRET_KEY;
 
 const publishableKey = process.env.PUBLISHABLE_KEY;
-console.log("publishableKey", publishableKey);
 
 const stripe = require("stripe")(secretKey);
 
