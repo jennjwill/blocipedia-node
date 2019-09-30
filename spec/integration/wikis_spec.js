@@ -6,6 +6,43 @@ const Wiki = require("../../src/db/models").Wiki;
 const User = require("../../src/db/models").User;
 
 describe("routes : wikis", () => {
+  // beforeEach(done => {
+  //   this.wiki;
+  //   this.user;
+
+  //   sequelize.sync({ force: true }).then(res => {
+  //     User.create({
+  //       username: "ziggy22",
+  //       email: "admin@example.com",
+  //       password: "123456789"
+  //     })
+  //       .then(user => {
+  //         this.user = user;
+
+  //         request.get({
+  //           url: "http://localhost:3000/auth/fake",
+  //           form: {
+  //             userId: user.id,
+  //             role: "standard"
+  //           }
+  //         });
+  //       })
+  //       .then(() => {
+  //         Wiki.create({
+  //           title: "JS Frameworks",
+  //           body: "There is a lot of them"
+  //         }).then(wiki => {
+  //           this.wiki = wiki;
+  //           done();
+  //         });
+  //       })
+  //       .catch(err => {
+  //         console.log(err);
+  //         done();
+  //       });
+  //   });
+  // });
+
   beforeEach(done => {
     this.user;
     this.wiki;
@@ -13,17 +50,15 @@ describe("routes : wikis", () => {
       User.create({
         username: "ziggy22",
         email: "admin@example.com",
-        password: "123456789",
-        role: "standard"
+        password: "123456789"
+        //role: "standard"
       }).then(user => {
         this.user = user;
         request.get({
           url: "http://localhost:3000/auth/fake",
           form: {
-            username: user.username,
-            email: user.email,
-            role: user.role,
-            id: user.id
+            role: "standard",
+            userId: this.user.id
           }
         });
         Wiki.create({
@@ -46,7 +81,7 @@ describe("routes : wikis", () => {
     it("should return all wikis", done => {
       request.get(base, (err, res, body) => {
         expect(err).toBeNull();
-        expect(body).toContain("wikis");
+        expect(body).toContain("Wikis");
         expect(body).toContain("JS Frameworks");
         done();
       });
@@ -56,6 +91,7 @@ describe("routes : wikis", () => {
   describe("GET /wikis/new", () => {
     it("should render a new wiki form", done => {
       request.get(`${base}new`, (err, res, body) => {
+        console.log("body is=", body);
         expect(err).toBeNull();
         expect(body).toContain("Wiki title");
         done();
