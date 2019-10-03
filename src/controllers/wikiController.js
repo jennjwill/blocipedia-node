@@ -26,10 +26,11 @@ module.exports = {
   new(req, res, next) {
     const authorized = new Authorizer(req.user).new();
     if (authorized) {
+      console.log("Got thru Authorized in NEW fxn but before render");
       res.render("wikis/new");
     } else {
       req.flash("notice", "You are not authorized to do that.");
-      res.redirect("/wikis");
+      res.redirect("wikis");
     }
   },
 
@@ -91,10 +92,11 @@ module.exports = {
       } else {
         const authorized = new Authorizer(req.user, wiki, collaborators).edit();
         if (authorized) {
+          console.log("INSIDE EDIT fxn. Thru Authorizer");
           res.render("wikis/edit", { wiki, collaborators });
         } else {
           req.flash("notice", "You are not authorized to do that.");
-          res.redirect(`/wikis/${req.params.id}`);
+          res.redirect(`wikis/${req.params.id}`);
         }
       }
     });
