@@ -93,7 +93,7 @@ module.exports = {
         const authorized = new Authorizer(req.user, wiki, collaborators).edit();
         if (authorized) {
           console.log("INSIDE EDIT fxn. Thru Authorizer");
-          res.render("/wikis/edit", { wiki, collaborators });
+          res.render("wikis/edit", { wiki, collaborators });
         } else {
           req.flash("notice", "You are not authorized to do that.");
           res.redirect(`/wikis/${req.params.id}`);
