@@ -210,7 +210,7 @@ describe("routes : wikis", () => {
           request.get({
             url: "http://localhost:3000/auth/fake",
             form: {
-              userId: user.id,
+              id: user.id,
               username: user.name,
               email: user.email,
               role: user.role
@@ -297,8 +297,9 @@ describe("routes : wikis", () => {
   describe("GET /wikis/:id/edit", () => {
     it("should render a view with an edit wiki form", done => {
       request.get(`${base}${this.wiki.id}/edit`, (err, res, body) => {
+        console.log("WIKI ID is=", +this.wiki.id);
         expect(err).toBeNull();
-        expect(body).toContain("Edit Wiki");
+        expect(body).toContain("Edit wiki");
         done();
       });
     });
