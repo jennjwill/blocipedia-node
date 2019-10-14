@@ -30,7 +30,7 @@ module.exports = {
       res.render("wikis/new");
     } else {
       req.flash("notice", "You are not authorized to do that.");
-      res.redirect("wikis");
+      res.redirect("/wikis");
     }
   },
 
@@ -96,7 +96,7 @@ module.exports = {
           res.render("wikis/edit", { wiki, collaborators });
         } else {
           req.flash("notice", "You are not authorized to do that.");
-          res.redirect(`wikis/${req.params.id}`);
+          res.redirect(`/wikis/${req.params.id}`);
         }
       }
     });
