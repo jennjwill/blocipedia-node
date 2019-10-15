@@ -43,8 +43,8 @@
         </select>
         <% } %>
         <button type="submit" class="btn btn-primary">Update</button>
-        <% if(!currentUser.isStandard && (currentUser.id == wiki.userId ||
-        currentUser && currentUser.isAdmin())) { %>
+        <% if(currentUser && (currentUser.id == wiki.userId || currentUser &&
+        currentUser.role === "admin")) { %>
         <a href="/wikis/<%= wiki.id %>/collaborators" class="btn btn-info"
           >Edit Collaborators</a
         >

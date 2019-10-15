@@ -12,7 +12,7 @@ router.get("/wikis/new", wikiController.new);
 
 router.get("/wikis/:id", wikiController.show);
 
-router.get("/wikis/:id/edit", wikiController.edit);
+router.get("/wikis/:id/edit", helper.ensureAuthenticated, wikiController.edit);
 
 router.post("/wikis/create", helper.ensureAuthenticated, wikiController.create);
 
